@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>NewHope</title>
+    <title>New Hope</title>
+    <meta name="author" content="Nishat">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -11,9 +12,73 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
-      <%= yield %>
-    </main>
+  <body class="bg-gray-100 tracking-wider tracking-normal">
+
+      <!-- navbar for signin signout -->
+      <nav id="header" class="fixed w-full z-10 top-0 bg-white border-b border-gray-400">
+         <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-4">
+            <div class="pl-4 flex items-center">
+               
+               <%= link_to root_path, class: "text-gray-900 text-base no-underline hover:no-underline font-extrabold text-xl" do %>
+                    <div style="width:50px">
+                       <!-- stormy -->
+                       <%= render "partials/stormy" %>
+                    </div>
+                   
+                   A NEW HOPE
+               <% end %>
+            </div>
+            
+
+               <ul class="list-reset lg:flex justify-end items-center">
+                  
+                  <% if user_signed_in? %>
+                     <li class="mr-3 py-2 lg:py-0">
+                        Hi <%= current_user.email %>!
+                     </li>
+                     <li class="mr-3 py-2 lg:py-0">
+                        <%= button_to "Log out", destroy_user_session_path, method: :delete %>
+                     </li>
+
+                  <% else %>
+
+                     <li class="mr-3 py-2 lg:py-0">
+                        <%= link_to "Log in", new_user_session_path, class: "inline-block text-gray-600 no-underline hover:text-gray-900 hover:underline py-2 px-4" %>
+                     </li>
+
+                  <% end %>
+
+
+               </ul>
+            
+         </div>
+      </nav>
+
+
+      <main class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-16 mt-16">
+
+        <div class="w-full notice-container">
+          <% if defined?(notice) && notice != nil %>
+            <div class="bg-green-500">
+              <div class="container px-2 mx-auto py-4 text-white text-center font-medium font-sans"><%= notice %></div>
+            </div>
+          <% end %>
+
+          <% if defined?(alert) && alert != nil  %>
+            <div class="bg-red-500">
+              <div class="container px-2 mx-auto py-4 text-white text-center font-medium font-sans"><%= alert %></div>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="w-full notice-container pt-8">
+          <%= yield %>
+        </div>
+      </main>
+
+
+
   </body>
+
+
 </html>
