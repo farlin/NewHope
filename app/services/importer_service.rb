@@ -1,4 +1,4 @@
-require 'csv'
+
 class ImporterService
 
 	def initialize(table)
@@ -15,8 +15,8 @@ class ImporterService
 
 	      if person.present?
 	      	
-	      	create_affiliations (params, person)
-	      	add_locations (params, person)
+	      	create_affiliations params, person
+	      	add_locations params, person
 
 	      end
 
@@ -43,7 +43,7 @@ class ImporterService
 				end
 
 			else
-				logger.debug "Location unknown for person : #{ params.inspect }"
+				puts "Location unknown for person : #{ params.inspect }"
 			end
 		end
 
@@ -54,20 +54,22 @@ class ImporterService
 
 				affiliations = params[:affiliations].split(',')
 				
-				logger.debug "#{ person.name } is getting affiliated with #{ affiliations.inspect }"
+				puts "===== #{ person.name } is getting affiliated with #{ affiliations.inspect }"
 
 				affiliations.each do |affiliation|
 
-					aff = Affiliation.find_or_create_by( name: affiliation )
+					aff = Affiliation.find_or_create_by( name: affiliation.titlecase )
+					puts "===== #{ affiliation } "
+
 					unless aff.people.include?(person)
-						logger.debug "#{ person.name } is now affiliated with #{ aff.inspect }"
+						puts "===== #{ person.name } is now affiliated with #{ aff.inspect }"
 						aff.people << person 
 						aff.save!
 					end
 				end
 
 			else
-				logger.debug "Skip unaffiliated person : #{ params.inspect }"
+				puts "Skip unaffiliated person : #{ params.inspect }"
 			end
 		end
 
@@ -92,14 +94,14 @@ class ImporterService
 				person.save
 
 			else
-				logger.debug "Skip unaffiliated person : #{ params.inspect }"
+				puts "Skip unaffiliated person : #{ params.inspect }"
 			end
 
 			person
 		end
 
 
-		def sanitize_rows
+		def sanitize_rows rows
 		  params = {}
 	      rows.each do |cell|
 	      	unless cell[0].blank?

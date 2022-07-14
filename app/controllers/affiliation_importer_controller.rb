@@ -1,3 +1,4 @@
+require 'csv'
 class AffiliationImporterController < ApplicationController
   
   before_action :authenticate_user!

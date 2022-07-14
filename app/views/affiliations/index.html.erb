@@ -3,7 +3,7 @@
 <section>
   <header class="bg-white space-y-4 p-4 sm:px-8 sm:py-6 lg:p-4 xl:px-8 xl:py-6">
     <div class="flex items-center justify-between">
-      <h2 class="font-semibold text-slate-900">Affiliations</h2>
+      <h2 class="mb-3 text-xl font-medium text-gray-900 dark:text-white">Affiliations</h2>
     </div>
     
   </header>
@@ -11,62 +11,64 @@
 
   <div class="overflow-x-auto relative bg-white space-y-4 p-4 sm:px-8 sm:py-6 lg:p-4 xl:px-8 xl:py-6">
 
-<%
-  # create a header row
-  colnames = ["#", "Name", "Location", "Species", "Gender" , "Affiliations", "Weapon", "Vehicle" ]
-  # Iterate over the strings with "each."
-  header = "<tr>"
-  colnames.each do |st|
-    header += "<th class='px-6 py-2 text-xs text-gray-500'>#{st}</th>"
-  end
-  header += "</tr>"
-%>
+    <%
+      # create a header row
+      colnames = ["#", "Name", "Location", "Species", "Gender" , "Affiliations", "Weapon", "Vehicle" ]
+      # Iterate over the strings with "each."
+      header = "<tr>"
+      colnames.each do |st|
+        header += "<th class='px-6 py-2 text-xs text-gray-500'>#{st}</th>"
+      end
+      header += "</tr>"
+    %>
 
-  <table class="divide-y divide-gray-300 pt-5 pb-5" data-page-length='10' id="dataTable">
-      <thead class="bg-gray-100">
-        <%= header.html_safe %>
-      </thead>
 
-      <tbody class="bg-white divide-y divide-gray-500">
-              
-            <% if @affiliations.count < 1 then %>
-              <p>Seems like we have no new data in this category, how about you create something?</p>
-            <% else %>
-                <% @affiliations.map(&:people).flatten.uniq.each do |people| %>
+    <% if @affiliations.count < 1 %>
+      <p class="mb-5 text-sm font-medium text-gray-500 dark:text-gray-300">Seems like we have no new data in this category, how about you create something?</p>
+    <% else %>
 
-                  <tr class="whitespace-nowrap">
-                    <td class="px-6 py-4 text-sm text-center text-gray-500">
-                        <%= people.id %>
-                    </td>
-                    <td class="px-6 py-4 text-sm text-left text-gray-500">
-                        <%= people.name %>
-                    </td>
-                    <td class="px-6 py-4 text-sm text-left text-gray-500">
-                        <%= people.locations.map(&:address).join(",") %>
-                    </td>
-                    <td class="px-6 py-4 text-sm text-center text-gray-500">
-                        <%= people.species %>
-                    </td>
-                    <td class="px-6 py-4 text-sm text-center text-gray-500">
-                        <%= people.gender.upcase %>
-                    </td>
-                    <td class="px-6 py-4 text-sm">
-                        <% people.affiliations.each do |affiliation| %>
-                             <%= link_to affiliation.name, affiliation_path(affiliation), class: "underline text-blue-600 hover:text-blue-800 visited:text-purple-600" %>
-                        <% end %>
-                    </td>
-                    <td class="px-6 py-4 text-sm text-center text-gray-500">
-                        <%= people.weapon %>
-                    </td>
-                    <td class="px-6 py-4 text-sm text-center text-gray-500">
-                        <%= people.vehicle %>
-                    </td>
-                  </tr>
-                <% end %>
+      <table class="divide-y divide-gray-300 pt-5 pb-5" data-page-length='10' id="dataTable">
+          <thead class="bg-gray-100">
+            <%= header.html_safe %>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-500">
+            <% @affiliations.map(&:people).flatten.uniq.each do |people| %>
+
+              <tr class="whitespace-nowrap">
+                <td class="px-6 py-4 text-sm text-center text-gray-500">
+                    <%= people.id %>
+                </td>
+                <td class="px-6 py-4 text-sm text-left text-gray-500">
+                    <%= people.name %>
+                </td>
+                <td class="px-6 py-4 text-sm text-left text-gray-500">
+                    <%= people.locations.map(&:address).join(",") %>
+                </td>
+                <td class="px-6 py-4 text-sm text-left text-gray-500">
+                    <%= people.species %>
+                </td>
+                <td class="px-6 py-4 text-sm text-left text-gray-500">
+                    <%= people.gender.upcase %>
+                </td>
+                <td class="px-6 py-4 text-sm">
+                    <% people.affiliations.each do |affiliation| %>
+                         <%= link_to affiliation.name, affiliation_path(affiliation), class: "underline text-blue-600 hover:text-blue-800 visited:text-purple-600" %>
+                    <% end %>
+                </td>
+                <td class="px-6 py-4 text-sm text-left text-gray-500">
+                    <%= people.weapon %>
+                </td>
+                <td class="px-6 py-4 text-sm text-left text-gray-500">
+                    <%= people.vehicle %>
+                </td>
+              </tr>
             <% end %>
+          </tbody>
+      </table>
 
-      </tbody>
-  </table>
+
+    <% end %>
+
 
 </div>
 </section>

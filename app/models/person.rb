@@ -1,8 +1,5 @@
 class Person < ApplicationRecord
 
-  include Sanitizable 
-
-
 # ======[ properties rules ]========
   
   enum gender: [ :male, :female, :unspecified ]
@@ -20,21 +17,26 @@ class Person < ApplicationRecord
 # ======[ validation rules ]========
 
   # Person should have both a first_name and last_name. 
-  validates :first_name, :last_name, presence: true
+  validates :first_name, presence: true
 
-  # A Person without an Affiliation should be skipped
-  # custom validation?
+  validate :first_name_is_titlecased
+  def first_name_is_titlecased
+    unless first_name.start_with?(/[A-Z]/)
+      errors.add(:first_name, "should be titlecased")
+    end
+  end
+
+  validate :last_name_is_titlecased
+  def last_name_is_titlecased
+    if last_name.present? && !last_name.start_with?(/[A-Z]/)
+      errors.add(:last_name, "should be titlecased")
+    end
+  end
+
+
 
 # ======[ Hooks ]========
-  # before_save :sanitize_data
-  # def sanitize_data
-  # removed it in because dealing with hypenated name case
-  #   # Names and Locations should all be titlecased
-  #   self.first_name = self.first_name.titlecase if self.first_name.present?
-  #   self.last_name = self.last_name.titlecase if self.last_name.present?
-  #   # 
-  #   return true
-  # end
+
 
 
 # ======[ other methods ]========
