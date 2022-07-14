@@ -1,4 +1,12 @@
 FactoryBot.define do
+  factory :person do
+    first_name { "MyString" }
+    last_name { "MyString" }
+    gender { 1 }
+    weapon { "MyString" }
+    vehicle { "MyString" }
+  end
+
   factory :location do
     address { "MyString" }
   end
