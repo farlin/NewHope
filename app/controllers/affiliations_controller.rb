@@ -1,4 +1,6 @@
 class AffiliationsController < ApplicationController
+
+  before_action :authenticate_user!
   before_action :set_affiliation, only: %i[ show edit update destroy ]
 
   # GET /affiliations or /affiliations.json
