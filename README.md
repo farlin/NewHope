@@ -36,7 +36,9 @@ results.
 Requirement translation:
 
 - "As a user" - this calls for some sort of Authentication. Using devise for this purpose.
-
+- "The data needs to load into 3 tables. People, Locations and
+Affiliations" - 
+    - Affiliation table
 
 Specifics:
 

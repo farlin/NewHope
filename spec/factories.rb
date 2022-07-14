@@ -1,4 +1,8 @@
 FactoryBot.define do
+  factory :affiliation do
+    name { "MyString" }
+  end
+
 
 
   factory(:user) do
