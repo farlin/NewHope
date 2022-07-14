@@ -33,6 +33,11 @@ maximum of 10 results at a time.
 results.
 
 
+Requirement translation:
+
+- "As a user" - this calls for some sort of Authentication. Using devise for this purpose.
+
+
 Specifics:
 
 * Ruby version
