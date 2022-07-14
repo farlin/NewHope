@@ -4,16 +4,18 @@ RSpec.describe "affiliations/index", type: :view do
   before(:each) do
     assign(:affiliations, [
       Affiliation.create!(
-        name: "Name"
+        name: "NameA"
       ),
       Affiliation.create!(
-        name: "Name"
+        name: "NameB"
       )
     ])
   end
 
   it "renders a list of affiliations" do
     render
-    assert_select "tr>td", text: "Name".to_s, count: 2
+
+    expect(rendered).to match /NameA/
+    expect(rendered).to match /NameB/
   end
 end
