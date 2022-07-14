@@ -1,0 +1,15 @@
+<div class="h-full w-full max-w-xs mx-auto align-middle">
+
+<%= form_tag( process_import_path, { :multipart => true, :class => "group relative"} ) do %>
+
+    <%= file_field_tag :import_csv_file, 
+            class: "focus:ring-2 focus:ring-blue-500 focus:outline-none appearance-none w-full text-sm leading-6 text-slate-900 placeholder-slate-400 rounded-md py-2 pl-10 ring-1 ring-slate-200 shadow-sm", 
+            :accept => 'text/csv', 
+            :required => true %>
+
+    <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_import_help">(only *.csv file allowed)</div>
+
+    <%= submit_tag :upload, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+
+<% end %>
+</div>

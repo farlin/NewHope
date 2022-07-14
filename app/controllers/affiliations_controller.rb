@@ -6,6 +6,7 @@ class AffiliationsController < ApplicationController
   # GET /affiliations or /affiliations.json
   def index
     @affiliations = Affiliation.all
+    @people = Person.all
   end
 
   # GET /affiliations/1 or /affiliations/1.json
