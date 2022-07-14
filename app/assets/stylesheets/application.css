@@ -13,3 +13,8 @@
  *= require_tree .
  *= require_self
  */
+
+@import url("https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css");
+#dataTable_length select{
+  width: 55px;
+}
