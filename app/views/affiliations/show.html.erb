@@ -1,12 +1,33 @@
-<div class="mx-auto md:w-2/3 w-full flex">
-  <div class="mx-auto">
 
+ 
+
+  <div class="overflow-x-auto relative bg-white space-y-4 p-4 sm:px-8 sm:py-6 lg:p-4 xl:px-8 xl:py-6">
+
+
+
+<% unless current_page?(root_path) %>
+  
+  <span class="text-base text-purple-500 font-bold">&laquo;</span> 
+  <a href="#" onClick="history.back()" class="text-base md:text-sm text-purple-500 font-bold no-underline hover:underline">Back Link</a>
+
+<% end %>
+
+        
+<!--Title-->
+<div class="font-sans">
+   <h1 class="font-sans break-normal text-gray-900 pt-6 pb-2 text-xl"><%= @affiliation.name %></h1>
+   <hr class="border-b border-gray-400">
+</div>
+<!--Post Content-->
+
+<% if user_signed_in? %>
     <%= render @affiliation %>
+<% else %>
+  <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice">You need to Login to see the magic.</p>
+<% end %>
 
-    <%= link_to 'Edit this affiliation', edit_affiliation_path(@affiliation), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <div class="inline-block ml-2">
-      <%= button_to 'Destroy this affiliation', affiliation_path(@affiliation), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
-    </div>
-    <%= link_to 'Back to affiliations', affiliations_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-  </div>
+<!--/ Post Content-->
+
+
+
 </div>
