@@ -39,6 +39,7 @@ Requirement translation:
 - "The data needs to load into 3 tables. People, Locations and
 Affiliations" - 
     - Affiliation table
+    - adding people and location
 
 Specifics:
 
