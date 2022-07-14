@@ -1,5 +1,7 @@
 class Affiliation < ApplicationRecord
 
+  include Sanitizable 
+
 
 # ======[ properties rules ]========
 
@@ -21,7 +23,7 @@ class Affiliation < ApplicationRecord
 # ======[ Hooks ]========
 	before_save :sanitize_data
 	def sanitize_data
-		self.name = self.name.titlecase	if self.name.present?
+		self.name = name_sanitizer (self.name.titlecase)	if self.name.present?
 		# 
 		return true
 	end

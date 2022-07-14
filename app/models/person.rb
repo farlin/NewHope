@@ -1,17 +1,12 @@
 class Person < ApplicationRecord
 
+  include Sanitizable 
+
 
 # ======[ properties rules ]========
   
   enum gender: [ :male, :female, :unspecified ]
  
-  # t.string "first_name", null: false
-  # t.string "last_name", null: false
-  # t.string "species"
-  # t.integer "gender"
-  # t.string "weapon"
-  # t.string "vehicle"
-
 
 
 # ======[ relationships rules ]========

@@ -1,15 +1,25 @@
-<div class="h-full w-full max-w-xs mx-auto align-middle">
+<div class="p-4 my-8 bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700">
+<h3 class="mb-3 text-xl font-medium text-gray-900 dark:text-white">Database Access</h3>
+
+<p class="mb-5 text-sm font-medium text-gray-500 dark:text-gray-300">Upload your latest source of data</p>
 
 <%= form_tag( process_import_path, { :multipart => true, :class => "group relative"} ) do %>
 
+    <div class="flex items-baseline mb-3">
+    <div class="relative mr-2 w-full revue-form-group">
+
     <%= file_field_tag :import_csv_file, 
-            class: "focus:ring-2 focus:ring-blue-500 focus:outline-none appearance-none w-full text-sm leading-6 text-slate-900 placeholder-slate-400 rounded-md py-2 pl-10 ring-1 ring-slate-200 shadow-sm", 
+            class: "block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400", 
             :accept => 'text/csv', 
             :required => true %>
 
-    <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_import_help">(only *.csv file allowed)</div>
+    <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">Accepts only *.csv.</p>
 
-    <%= submit_tag :upload, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+    </div>
+    <div class="revue-form-actions">
+      <%= submit_tag :Upload, class: "cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" %>
+    </div>
+    </div>
 
 <% end %>
 </div>

@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
 
   # custom path/controller for importing
-  post '/upload', to: 'affiliation_importer#process_import', as: 'process_import'
+  post '/upload', to: 'affiliation_importer#upload', as: 'process_import'
 
   resources :affiliations
 
