@@ -17,10 +17,10 @@ class Person < ApplicationRecord
 # ======[ relationships rules ]========
 
   # A Person can belong to many Locations
-  has_and_belongs_to_many :locations, :join_table => :locations_people
+  has_and_belongs_to_many :locations,  -> { distinct }
  
   # A Person can belong to many Affiliations
-  has_and_belongs_to_many :affiliations, :join_table => :affiliations_people
+  has_and_belongs_to_many :affiliations,   -> { distinct }
 
 # ======[ validation rules ]========
 
@@ -43,10 +43,6 @@ class Person < ApplicationRecord
 
 
 # ======[ other methods ]========
-  def is_make(str)
-    str =~ /[aeiou]/
-  end
-
 
   def self.gender_parser str
     str = str.downcase.strip

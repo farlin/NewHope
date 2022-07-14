@@ -7,7 +7,7 @@ class Affiliation < ApplicationRecord
 
 
 # ======[	relationships rules ]========
-	has_and_belongs_to_many :people, class_name: "Person", :join_table => :affiliations_people
+	has_and_belongs_to_many :people, -> { distinct }
 
 
 
