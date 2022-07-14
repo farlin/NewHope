@@ -14,6 +14,16 @@ require 'rails_helper'
 
 RSpec.describe "/affiliations", type: :request do
   
+  before (:each) do
+    @user = User.create!({
+      :email => 'user@test.com',
+      :password => 'please',
+      :password_confirmation => 'please' 
+      })
+
+    sign_in @user
+  end
+
   # This should return the minimal set of attributes required to create a valid
   # Affiliation. As you add validations to Affiliation, be sure to
   # adjust the attributes here as well.
