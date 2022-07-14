@@ -39,7 +39,7 @@
             <% if @affiliations.count < 1 then %>
               <p>Seems like we have no new data in this category, how about you create something?</p>
             <% else %>
-                <% @people.each do |people| %>
+                <% @affiliations.map(&:people).flatten.uniq.each do |people| %>
 
                   <tr class="whitespace-nowrap">
                     <td class="px-6 py-4 text-sm text-center text-gray-500">

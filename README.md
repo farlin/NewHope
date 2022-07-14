@@ -40,6 +40,7 @@ Requirement translation:
 Affiliations" - 
     - Affiliation table
     - adding people and location
+    
 
 Specifics:
 
