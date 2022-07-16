@@ -81,12 +81,13 @@ class ImporterService
 			# we are not going to create anyone without affiliation
 			unless params[:affiliations].blank?
 
-				names = Person.name_sanitizer( params[:name] )
+				# names = Person.name_sanitizer( params[:name] )
 
 				# a person should have first name and last name (but last name is optional)
-				last_name = Person.get_last_names( names )
+				# last_name = Person.get_last_names( names )
 
-				person = Person.find_or_create_by(first_name: names[0], last_name: last_name)
+				# person = Person.find_or_create_by(first_name: names[0], last_name: last_name)
+				person = Person.find_or_create_by( name: params[:name] )
 				person.species = params[:species]
 				person.vehicle = params[:vehicle]
 				person.weapon = params[:weapon]

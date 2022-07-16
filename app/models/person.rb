@@ -3,8 +3,6 @@ class Person < ApplicationRecord
 # ======[ properties rules ]========
   
   enum gender: [ :male, :female, :unspecified ]
- 
-
 
 # ======[ relationships rules ]========
 
@@ -18,10 +16,11 @@ class Person < ApplicationRecord
 
   # Person should have both a first_name and last_name. 
   validates :first_name, presence: true
+  validates_format_of :first_name, :with => /^([^\d\W]|[-])*$/, :multiline => true, :message => "should be string"
 
   validate :first_name_is_titlecased
   def first_name_is_titlecased
-    unless first_name.start_with?(/[A-Z]/)
+    unless first_name.present? && first_name.start_with?(/[A-Z]/)
       errors.add(:first_name, "should be titlecased")
     end
   end
@@ -40,6 +39,8 @@ class Person < ApplicationRecord
 
 
 # ======[ other methods ]========
+
+
 
   def self.gender_parser str
     str = str.downcase.strip
@@ -65,5 +66,11 @@ class Person < ApplicationRecord
 
   def name
     "#{first_name} #{last_name}"
+  end
+
+  def name=(str)
+    names = Person.name_sanitizer( str )
+    self.first_name = names[0]
+    self.last_name = Person.get_last_names( names )
   end
 end
