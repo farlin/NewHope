@@ -15,4 +15,4 @@
 #   inflect.acronym "RESTful"
 # end
 
-# ActiveSupport::Inflector.inflections(:en).human(/C-3PO/, "C3PO")
+ActiveSupport::Inflector.inflections(:en).human(/C-3PO/, "C-3PO")

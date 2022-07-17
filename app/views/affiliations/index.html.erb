@@ -42,8 +42,9 @@
                     <%= people.name %>
                 </td>
                 <td class="px-6 py-4 text-sm text-left text-gray-500">
-                    <%= people.locations.map(&:id).join(",") %>
-                    <%= people.locations.map(&:address).join(",") %>
+                    <% people.locations.each do |loc|  %>
+                    <%= "##{loc.id} #{loc.address}" %>
+                    <% end %>
                 </td>
                 <td class="px-6 py-4 text-sm text-left text-gray-500">
                     <%= people.species %>

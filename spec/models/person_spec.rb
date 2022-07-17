@@ -109,10 +109,12 @@ RSpec.describe Person, type: :model do
 "Lando calrissian"
 ]
 
-    it 'returns handles exceptional names' do
+    it 'does not muckup C-3PO'
+
+    it 'handles exceptional names' do
       person = Person.new
-      person.name = "C-3PO"
-      # fails..
+      # person.name = "C-3PO"
+      # # fails..
       # expect(person.first_name).to match("C-3PO") 
 
       person.name = "R2-D2"

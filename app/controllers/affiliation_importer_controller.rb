@@ -5,39 +5,8 @@ class AffiliationImporterController < ApplicationController
   before_action :check_if_file_present
   
 
-
-  def check_if_file_present
-
-    unless params[:import_csv_file].present?
-      redirect_to affiliations_url, flash: { alert: "File missing" } and return
-    end
-
-    if params[:import_csv_file].content_type != "text/csv"
-      # not really a full proof check
-      redirect_to affiliations_url, flash: { alert: "File is not a CSV" } and return
-    end
-
-    begin
-
-      csv_file =  File.read(params[:import_csv_file].tempfile)
-
-    rescue Errno::ENOENT => e
-      
-      deadgum = "File or directory #{params[:import_csv_file]} doesn't exist."
-      redirect_to affiliations_url, flash: { alert: deadgum } and return
-    
-    rescue Errno::EACCES => e
-      
-      deadgum = "Can't read from #{params[:import_csv_file]}. No permission."
-      redirect_to affiliations_url, flash: { alert: deadgum } and return
-    end
-
-
-  end
-
-
+  # POST /upload 
   def upload
-
 
     deadgum = nil
 
@@ -60,4 +29,37 @@ class AffiliationImporterController < ApplicationController
     end
 
   end
+
+  private
+
+    # performs some housekeeping around the file upload
+    #
+    def check_if_file_present
+
+      unless params[:import_csv_file].present?
+        redirect_to affiliations_url, flash: { alert: "File missing" } and return
+      end
+
+      if params[:import_csv_file].content_type != "text/csv"
+        # not really a full proof check
+        redirect_to affiliations_url, flash: { alert: "File is not a CSV" } and return
+      end
+
+      begin
+
+        csv_file =  File.read(params[:import_csv_file].tempfile)
+
+      rescue Errno::ENOENT => e
+        
+        deadgum = "File or directory #{params[:import_csv_file]} doesn't exist."
+        redirect_to affiliations_url, flash: { alert: deadgum } and return
+      
+      rescue Errno::EACCES => e
+        
+        deadgum = "Can't read from #{params[:import_csv_file]}. No permission."
+        redirect_to affiliations_url, flash: { alert: deadgum } and return
+      end
+
+
+    end
 end

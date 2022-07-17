@@ -16,7 +16,11 @@ class Person < ApplicationRecord
 
   # Person should have both a first_name and last_name. 
   validates :first_name, presence: true
+
+  # this rule was commented out because C3-PO and R2-D2 was being ignored
+  # 
   # validates_format_of :first_name, :with => /^([^\d\W]|[-])*$/, :multiline => true, :message => "should be string"
+
 
   validate :first_name_is_titlecased
   def first_name_is_titlecased
@@ -56,11 +60,18 @@ class Person < ApplicationRecord
     res
   end
 
+  # takes any name piece joins them up
+  # (except first part)
   def self.get_last_names names
     names[1, names.length].join(" ")
   end
 
+  # function to sanitize the name string
+  # takes a string, splits by space
+  #
   def self.name_sanitizer res
+
+    # tried adding exception in the inflection, but didn't work
     res.humanize.gsub(/\b('?[a-z])/) { $1.capitalize }.split(' ')
   end
 
