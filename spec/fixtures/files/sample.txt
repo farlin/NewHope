@@ -1,0 +1,3 @@
+Name,Location,Species,Gender,Affiliations,Weapon,Vehicle
+Darth Vadar,"Death Star, Tatooine",Human,Male,Sith,Lightsaber,Tiefighter
+Chewbacca,kashyyk,Wookie,m,Rebel Alliance,Bowcaster,Millennium Falcon

@@ -1,12 +1,13 @@
 
-class ImporterService
+class ImporterService < ApplicationService
+
+	attr_reader :table
 
 	def initialize(table)
 		@table = table
-		perform
 	end
 
-	def perform 
+	def call 
 
 		@table.each do |rows|
 
@@ -33,6 +34,7 @@ class ImporterService
 				locations = params[:location].split(',')
 				locations.each do |location|
 
+					location = location.titlecase
 					loc = Location.find_or_create_by( address: location )
 					
 					unless loc.people.include?(person)
@@ -43,7 +45,7 @@ class ImporterService
 				end
 
 			else
-				puts "Location unknown for person : #{ params.inspect }"
+				Rails.logger.info "Location unknown for person : #{ params.inspect }"
 			end
 		end
 
@@ -54,22 +56,22 @@ class ImporterService
 
 				affiliations = params[:affiliations].split(',')
 				
-				puts "===== #{ person.name } is getting affiliated with #{ affiliations.inspect }"
+				Rails.logger.debug "===== #{ person.name } is getting affiliated with #{ affiliations.inspect }"
 
 				affiliations.each do |affiliation|
 
 					aff = Affiliation.find_or_create_by( name: affiliation.titlecase )
-					puts "===== #{ affiliation } "
+					Rails.logger.debug "===== #{ affiliation } "
 
 					unless aff.people.include?(person)
-						puts "===== #{ person.name } is now affiliated with #{ aff.inspect }"
+						Rails.logger.debug "===== #{ person.name } is now affiliated with [#{ aff.id } - #{ aff.name }]"
 						aff.people << person 
 						aff.save!
 					end
 				end
 
 			else
-				puts "Skip unaffiliated person : #{ params.inspect }"
+				Rails.logger.info "Skip unaffiliated person : #{ params.inspect }"
 			end
 		end
 
@@ -81,21 +83,23 @@ class ImporterService
 			# we are not going to create anyone without affiliation
 			unless params[:affiliations].blank?
 
-				# names = Person.name_sanitizer( params[:name] )
+				person = Person.new
+				person.name =  params[:name]
 
-				# a person should have first name and last name (but last name is optional)
-				# last_name = Person.get_last_names( names )
+				if person.valid?
+					person.species = params[:species]
+					person.vehicle = params[:vehicle]
+					person.weapon = params[:weapon]
+					person.gender = Person.gender_parser ( params[:gender] )
+					person.save
+				else
 
-				# person = Person.find_or_create_by(first_name: names[0], last_name: last_name)
-				person = Person.find_or_create_by( name: params[:name] )
-				person.species = params[:species]
-				person.vehicle = params[:vehicle]
-				person.weapon = params[:weapon]
-				person.gender = Person.gender_parser ( params[:gender] )
-				person.save
+					Rails.logger.error "Things did't work well for #{ params } - errors #{ person.errors.messages }"
+					person = nil
+				end
 
 			else
-				puts "Skip unaffiliated person : #{ params.inspect }"
+				Rails.logger.info "Skip unaffiliated person : #{ params }"
 			end
 
 			person

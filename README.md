@@ -12,7 +12,7 @@ System Requirement:
 
 PART 1
 As a user, I should be able to upload sample CSV and import the data into
-a database. (located in /SAMPLE_FILE/* )
+a database. (located in folder ```/SAMPLE_FILE/* ```)
 IMPORTER REQUIREMENTS
 a. The data needs to load into 3 tables. People, Locations and
 Affiliations
@@ -62,6 +62,12 @@ App is currently configured to use sqlite3
 Perform rake task for database migration:
 ```rake db:migrate```
 
+Load the seed data:
+```rake db:seed```
+
+
+freshen up the database with seed
+```rake db:reset```
 
 * Run the app
 
@@ -73,3 +79,11 @@ App can be run by triggering PUMA using
 
 
 * How to run the test suite
+Trigger test cases by using
+``` rspec ```
+Browse to the following directory to see the test coverage
+```
+/coverage/index.html
+
+```
+

@@ -13,8 +13,16 @@ FactoryBot.define do
 
   factory :affiliation do
     name { "MyString" }
-  end
 
+    transient do
+      people_count { 2 }
+    end
+
+    after(:create) do |affiliation, evaluator|
+      create_list(:person, evaluator.people_count, affiliations: [affiliation])
+      affiliation.reload
+    end    
+  end
 
 
   factory(:user) do

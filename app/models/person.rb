@@ -16,7 +16,7 @@ class Person < ApplicationRecord
 
   # Person should have both a first_name and last_name. 
   validates :first_name, presence: true
-  validates_format_of :first_name, :with => /^([^\d\W]|[-])*$/, :multiline => true, :message => "should be string"
+  # validates_format_of :first_name, :with => /^([^\d\W]|[-])*$/, :multiline => true, :message => "should be string"
 
   validate :first_name_is_titlecased
   def first_name_is_titlecased

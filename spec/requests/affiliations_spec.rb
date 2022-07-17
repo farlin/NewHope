@@ -15,29 +15,18 @@ require 'rails_helper'
 RSpec.describe "/affiliations", type: :request do
   
   before (:each) do
-    @user = User.create!({
-      :email => 'user@test.com',
-      :password => 'please',
-      :password_confirmation => 'please' 
-      })
-
+    @user = create(:user)
     sign_in @user
   end
 
-  # This should return the minimal set of attributes required to create a valid
-  # Affiliation. As you add validations to Affiliation, be sure to
-  # adjust the attributes here as well.
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
 
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
+  # describe "POST /upload"
+  
 
   describe "GET /index" do
     it "renders a successful response" do
-      Affiliation.create! valid_attributes
+      create :affiliation,  people_count: 5
+
       get affiliations_url
       expect(response).to be_successful
     end
@@ -45,7 +34,8 @@ RSpec.describe "/affiliations", type: :request do
 
   describe "GET /show" do
     it "renders a successful response" do
-      affiliation = Affiliation.create! valid_attributes
+      
+      affiliation = create :affiliation
       get affiliation_url(affiliation)
       expect(response).to be_successful
     end
