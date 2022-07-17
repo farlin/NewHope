@@ -11,11 +11,16 @@ RSpec.describe ImporterService, type: :model do
 
   describe '#call' do
 
-    # it "processes csv table data" do
-    #   res = 'Name,Location,Species,Gender,Affiliations,Weapon,Vehicle\nDarth Vadar,"Death Star, Tatooine",Human,Male,Sith,Lightsaber,Tiefighter\nChewbacca,kashyyk,Wookie,m,Rebel Alliance,Bowcaster,Millennium Falcon'
-    #   ttable = CSV.parse(res.gsub(/\r\n?/,"\n"), headers: true, :row_sep => :auto, :col_sep => ",") 
-    #   ImporterService.call(ttable)
-    # end
+    it "processes csv table data" do
+      res = "Name,Location,Species,Gender,Affiliations,Weapon,Vehicle\nDarth Vadar,\"Death Star, Tatooine\",Human,Male,Sith,Lightsaber,Tiefighter\nChewbacca,kashyyk,Wookie,m,Rebel Alliance,Bowcaster,Millennium Falcon"
+      ttable = CSV.parse(res.gsub(/\r\n?/,"\n"), headers: true, :row_sep => :auto, :col_sep => ",") 
+      
+      
+      expect { 
+          # raise "oops" 
+          ImporterService.call(ttable)
+        }.to_not raise_error
+    end
 
     it "skips data without affiliations" do
 
